@@ -46,11 +46,11 @@
             </td>
             <td>{{ $ticket->tecnico_asignado ?? '-' }}</td>
             <td>
-                <a href="{{ route('tickets.show',$ticket) }}"
+                <a href="{{ route('admin.tickets.show',$ticket) }}"
                     class="btn btn-sm btn-outline-primary">Ver</a>
-                <a href="{{ route('tickets.edit',$ticket) }}"
+                <a href="{{ route('admin.tickets.edit',$ticket) }}"
                     class="btn btn-sm btn-outline-warning">Editar</a>
-                <form action="{{ route('tickets.destroy',$ticket) }}"
+                <form action="{{ route('admin.tickets.destroy',$ticket) }}"
                     method="POST"
                     class="d-inline"
                     onsubmit="return confirm('¿Eliminar?')">

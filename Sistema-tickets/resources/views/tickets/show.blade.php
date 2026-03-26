@@ -71,11 +71,11 @@
                 </div>
             </div>
             <div class="card-footer d-flex gap-2">
-                <a href="{{ route('tickets.edit',$ticket) }}"
+                <a href="{{ route('admin.tickets.edit',$ticket) }}"
                     class="btn btn-warning">Editar</a>
-                <a href="{{ route('tickets.index') }}"
+                <a href="{{ route('admin.tickets.index') }}"
                     class="btn btn-secondary">Volver</a>
-                <form action="{{ route('tickets.destroy',$ticket) }}" method="POST"
+                <form action="{{ route('admin.tickets.destroy',$ticket) }}" method="POST"
                     class="ms-auto" onsubmit="return confirm('¿Eliminar?')">
                     @csrf @method('DELETE')
                     <button class="btn btn-danger">Eliminar</button>

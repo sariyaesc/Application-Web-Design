@@ -8,7 +8,7 @@
                 <h5 class="mb-0"> Editar: {{ $ticket->numero_reporte }}</h5>
             </div>
             <div class="card-body">
-                <form action="{{ route('tickets.update',$ticket) }}" method="POST">
+                <form action="{{ route('admin.tickets.update',$ticket) }}" method="POST">
                     @csrf
                     @method('PUT')
                     <div class="row g-3">
@@ -112,7 +112,7 @@
                     <div class="mt-4 d-flex gap-2">
                         <button type="submit" class="btn btn-warning">Actualizar
                             Ticket</button>
-                        <a href="{{ route('tickets.show',$ticket) }}"
+                        <a href="{{ route('admin.tickets.show',$ticket) }}"
                             class="btn btn-secondary">Cancelar</a>
                     </div>
                 </form>
