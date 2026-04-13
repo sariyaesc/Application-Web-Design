@@ -23,7 +23,7 @@ Route::middleware(['auth'])->group(function () {
 
     // Dashboard: redirige según el rol
     Route::get('/dashboard', function () {
-        return match (Auth::user()->rol) { // ← Auth:: en vez de auth()->
+        return match (Auth::user()->rol) {
             'admin'   => redirect()->route('admin.dashboard'),
             'gerente' => redirect()->route('gerente.dashboard'),
             default   => redirect()->route('usuario.dashboard'),
@@ -43,7 +43,7 @@ Route::middleware(['auth'])->group(function () {
             Route::delete('/usuarios/{user}', [AdminController::class, 'eliminarUsuario'])->name('usuarios.destroy');
         });
 
-    // ── RUTAS GERENTE ────────────────────────
+    // ── RUTAS GERENTE (Y ADMIN) ────────────────────────
     Route::middleware(['rol:admin,gerente'])
         ->prefix('gerente')
         ->name('gerente.')
@@ -51,6 +51,8 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/dashboard', [GerenteController::class, 'dashboard'])->name('dashboard');
             Route::get('/reportes', [GerenteController::class, 'reportes'])->name('reportes');
             Route::get('/tickets', [GerenteController::class, 'verTodos'])->name('tickets.index');
+            Route::patch('/tickets/{ticket}/close', [TicketWebController::class, 'close'])
+                ->name('tickets.close');
         });
 
     // ── RUTAS USUARIO ────────────────────────

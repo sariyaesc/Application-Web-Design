@@ -5,10 +5,10 @@
     <h2 class="fw-bold"> Tickets de Soporte</h2>
     <span class="text-muted">Total: {{ $tickets->count() }}</span>
 </div>
+
 @if($tickets->isEmpty())
 <div class="alert alert-info text-center">
-    No hay tickets. <a href="{{ route('tickets.create') }}">Crea el
-        primero.</a>
+    No hay tickets. <a href="{{ route('usuario.tickets.create') }}">Crea el primero.</a>
 </div>
 @else
 <table class="table table-hover bg-white shadow-sm rounded">
@@ -46,16 +46,24 @@
             </td>
             <td>{{ $ticket->tecnico_asignado ?? '-' }}</td>
             <td>
-                <a href="{{ route('admin.tickets.show',$ticket) }}"
-                    class="btn btn-sm btn-outline-primary">Ver</a>
-                <a href="{{ route('admin.tickets.edit',$ticket) }}"
-                    class="btn btn-sm btn-outline-warning">Editar</a>
-                <form action="{{ route('admin.tickets.destroy',$ticket) }}"
-                    method="POST"
-                    class="d-inline"
-                    onsubmit="return confirm('¿Eliminar?')">
-                    @csrf @method('DELETE')
-                    <button class="btn btn-sm btn-outlinedanger">Eliminar</button>
+                <a href="{{ route('admin.tickets.show', $ticket) }}" class="btn btn-sm btn-outline-primary">Ver</a>
+                <a href="{{ route('admin.tickets.edit', $ticket) }}" class="btn btn-sm btn-outline-warning">Editar</a>
+
+                @if(auth()->user()->rol == 'admin' || auth()->user()->rol == 'gerente')
+                    <form action="{{ route('gerente.tickets.close', $ticket) }}" method="POST" class="d-inline">
+                        @csrf 
+                        @method('PATCH')
+                        <button type="submit" class="btn btn-sm btn-success" 
+                                onclick="return confirm('¿Estás seguro de cerrar este ticket?')">
+                            Cerrar
+                        </button>
+                    </form>
+                @endif
+
+                <form action="{{ route('admin.tickets.destroy', $ticket) }}" method="POST" class="d-inline" onsubmit="return confirm('¿Eliminar?')">
+                    @csrf 
+                    @method('DELETE')
+                    <button class="btn btn-sm btn-danger">Eliminar</button>
                 </form>
             </td>
         </tr>
